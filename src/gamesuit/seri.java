@@ -80,9 +80,9 @@ public class seri extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        main_game mg = new main_game();
-        mg.setVisible(true);
-        mg.animasi_acak();
+//        main_game mg = new main_game();
+//        mg.setVisible(true);
+//        mg.animasi_acak();
         
         
     }//GEN-LAST:event_jButton1ActionPerformed

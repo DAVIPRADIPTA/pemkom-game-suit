@@ -6,7 +6,10 @@ package gamesuit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Random;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -23,15 +26,19 @@ public class main_game extends javax.swing.JFrame {
     private Timer timer;
     private Random rand = new Random();
     String komputer;
+    int currentScore;
+    int highScore = 0;
     public main_game() {
         initComponents();
         
         
    }    public main_game(String nama) {
+       
         initComponents();
+        startClock();
         nama_user.setText(nama);
         animasi_acak();
-        
+        lblHighScore.setText(""+highScore);
    }
     
 
@@ -51,6 +58,8 @@ public class main_game extends javax.swing.JFrame {
         btn_kertas = new javax.swing.JButton();
         lblHasil = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        lblHighScore = new javax.swing.JLabel();
+        lblClock = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +95,10 @@ public class main_game extends javax.swing.JFrame {
             }
         });
 
+        lblHighScore.setText("jLabel1");
+
+        lblClock.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,10 +106,15 @@ public class main_game extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHasil)
-                            .addComponent(btn_batu, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHasil)
+                                    .addComponent(btn_batu, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(lblHighScore)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
@@ -104,33 +122,39 @@ public class main_game extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                                 .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
+                                .addGap(44, 44, 44)
                                 .addComponent(btn_gunting, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
+                                .addGap(45, 45, 45)
                                 .addComponent(btn_kertas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(247, 247, 247)
-                        .addComponent(nama_user)))
+                        .addComponent(nama_user)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblClock)))
                 .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(nama_user)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(153, 153, 153)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nama_user)
                                 .addGap(18, 18, 18)
-                                .addComponent(pil_komputer, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(pil_komputer, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(lblClock)
+                                .addGap(142, 142, 142)
+                                .addComponent(jButton1)))
                         .addGap(54, 54, 54))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(lblHighScore)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblHasil)
                         .addGap(66, 66, 66)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +227,9 @@ public class main_game extends javax.swing.JFrame {
     private javax.swing.JButton btn_gunting;
     private javax.swing.JButton btn_kertas;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel lblClock;
     private javax.swing.JLabel lblHasil;
+    private javax.swing.JLabel lblHighScore;
     private javax.swing.JLabel nama_user;
     private javax.swing.JLabel pil_komputer;
     // End of variables declaration//GEN-END:variables
@@ -247,17 +273,33 @@ public class main_game extends javax.swing.JFrame {
         String hasil = tentukanPemenang(userChoice, komputerChoice);
         lblHasil.setText("Hasil: " + hasil);
         
-//        if (hasil.equals("Menang")) {
-//            currentScore++;
-//        } else {
-//            currentScore = 0;
-//        }
+        if (hasil.equals("Menang")) {
+            currentScore+=10;
+        if (hasil.equals("Seri")){
+            currentScore = currentScore;
+        }} else {
+            currentScore = 0;
+        }
 //        
-//        if (currentScore > highScore) {
-//            highScore = currentScore;
+        if (currentScore > highScore) {
+            highScore = currentScore;
 //            saveHighScore(highScore);
-//        }
+        }
 //        
-//        lblHighScore.setText("High Score: " + highScore);
+        lblHighScore.setText("High Score: " + highScore);
     }
+
+    private void startClock() {
+        java.util.Timer t = new java.util.Timer("Thread-Jam");
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+                String waktu = df.format(c.getTime());
+                lblClock.setText(waktu);
+            }
+        }, 0, 1000);
+    }
+
 }
